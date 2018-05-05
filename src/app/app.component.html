@@ -1,0 +1,104 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Reservación de Habitaciones
+  </h1>
+</div>
+<h2>Llena los datos de la reservación: </h2>
+<div class="card-block">
+    <div class="form-group row">
+      <label class="col-2 col-form-label"><b>Nombre</b></label>
+      <div class="col-10">
+        <input [(ngModel)]="nombreCliente" class="form-control" type="text">
+      </div>
+    </div>
+    <br>
+    <div class="form-group row">
+      <label class="col-2 col-form-label"><b>Comentarios</b></label>
+      <div class="col-10">
+        <input [(ngModel)]="comentariosCliente" class="form-control" type="text">
+      </div>
+    </div>
+    <br>
+    <div class="form-group row">
+      <label class="col-2 col-form-label"><b>Fecha de Entrada</b></label>
+      <div class="col-10">
+          <input [(ngModel)]="fechaEntrada" class="form-control" type="date">
+      </div>
+    </div>
+    <br>
+    <div class="form-group row">
+      <label class="col-2 col-form-label"><b>Fecha de Salida</b></label>
+      <div class="col-10">
+          <input [(ngModel)]="fechaSalida" class="form-control" type="date">
+      </div>
+    </div>
+    <br>
+    <div class="form-group row">
+      <label class="col-2 col-form-label"><b>Habitación</b></label>
+      <div class="col-10">
+        <select [(ngModel)]="roomId" class="form-control" (change)="showDetails()">
+          <option *ngFor="let item of rooms" value="{{item.id}}">{{item.nombre}}</option>
+        </select>
+      </div>
+    </div>
+    <br>
+    <div class="form-group row" *ngIf="showRoomDetails">
+      <label class="col-2 col-form-label"><b>Precio Temporada Baja</b></label>
+      <div class="col-10">
+          {{precioTB}}
+      </div>
+    </div>
+    <br>
+    <div class="form-group row" *ngIf="showRoomDetails">
+      <label class="col-2 col-form-label"><b>Precio Temporada Alta</b></label>
+      <div class="col-10">
+          {{precioTA}}
+      </div>
+    </div>
+    <br>
+    <div class="form-group row" *ngIf="showRoomDetails">
+      <label class="col-2 col-form-label"><b>Cantidad de Personas</b></label>
+      <div class="col-10">
+        <select [(ngModel)]="capacidad" class="form-control">
+          <option *ngFor="let capacidad of capacidades" value="{{capacidad}}">{{capacidad}}</option>
+        </select>
+      </div>
+    </div>
+    <br>
+    <div class="form-group row" *ngIf="showRoomDetails">
+      <label class="col-2 col-form-label"><b>Extras</b></label>
+      <div *ngFor="let item of extras" class="col-10">
+        <input [(ngModel)]="item.isChecked" [checked]="item.isChecked" type="checkbox" name="extra" (change)="asignarExtra(item)">
+        {{item.nombre}} - Precio TB:{{item.precio1}} - Precio TA:{{item.precio2}}
+      </div>
+    </div>
+    <br>
+    <div class="form-group row" *ngIf="showRoomDetails">
+      <input type="button" name="buscar" value="Buscar Disponibilidad" (click)="buscarDisponibilidad()">
+    </div>
+    <br>
+    <div class="form-group row" *ngIf="showPrecioReserva">
+      <label class="col-2 col-form-label"><b>Precio Total Habitación:</b></label>
+      {{precioFinalHabitacion}}
+    </div>
+    <br>
+    <div class="form-group row" *ngIf="showPrecioReserva">
+      <label class="col-2 col-form-label"><b>Precio Total Extras:</b></label>
+      {{precioFinalExtras}}
+    </div>
+    <br>
+    <div class="form-group row" *ngIf="showPrecioReserva">
+      <label class="col-2 col-form-label"><b>Precio Total Reserva Por Persona:</b></label>
+      {{precioFinalPorPersona}}
+    </div>
+    <br>
+    <div class="form-group row" *ngIf="showPrecioReserva">
+      <label class="col-2 col-form-label"><b>Precio Total Reserva:</b></label>
+      {{precioFinal}}
+    </div>
+    <br>
+    <div class="form-group row" *ngIf="showPrecioReserva">
+      <input type="button" name="reservar" value="Reservar" (click)="reservar()">
+    </div>
+</div>
